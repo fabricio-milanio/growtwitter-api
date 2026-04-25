@@ -1,40 +1,51 @@
-# API Node.js Template
+# Growtwitter API 🐦
 
-Este é um template para criar APIs RESTful em Node.js utilizando Express, TypeScript, Prisma ORM e PostgreSQL. O projeto está configurado para rodar em containers Docker com autoreload para desenvolvimento.
+O Growtwitter é uma API REST robusta desenvolvida como projeto final para o curso de Web Full Stack da Growdev. A aplicação simula as funcionalidades principais de uma rede social, permitindo a interação em tempo real entre usuários através de tweets, respostas, curtidas e um sistema dinâmico de seguidores. O objetivo do projeto é consolidar conhecimentos em desenvolvimento backend, focando em escalabilidade, organização de código com Programação Orientada a Objetos (POO) e persistência de dados relacionais.
 
-## Descrição
+## 🛠 Tecnologias Utilizadas
 
-O template inclui uma estrutura básica para uma API Node.js com:
-- **Express**: Framework web para Node.js.
-- **TypeScript**: Superset do JavaScript com tipagem estática.
-- **Prisma**: ORM para interação com o banco de dados PostgreSQL.
-- **Docker**: Containerização para facilitar o desenvolvimento e deploy.
-- **Autoload**: Recarregamento automático do servidor durante o desenvolvimento.
+O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-## Pré-requisitos
+- **Node.js**: Runtime JavaScript para o backend.
+- **Express**: Framework web para gerenciamento de rotas e middlewares.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática e segurança ao código.
+- **Prisma ORM**: Ferramenta para mapeamento e manipulação do banco de dados PostgreSQL.
+- **JWT (JSON Web Token)**: Implementação de segurança para autenticação e proteção de rotas.
+- **BCrypt**: Criptografia de senhas para garantir a segurança dos dados dos usuários.
+- **Docker**: Containerização para padronização do ambiente de desenvolvimento e deploy.
+- **PostgreSQL**: Banco de dados relacional para persistência de dados.
+
+## 📋 Funcionalidades e Regras de Negócio
+
+- **Autenticação Segura**: Cadastro e Login de usuários com geração de tokens JWT.
+- **Sistema de Tweets**: Criação de tweets e suporte a replies (um tweet respondendo a outro).
+- **Interatividade**: Sistema de curtidas (likes) em tweets e replies.
+- **Social Graph**: Mecanismo de "seguir" e "deixar de seguir" usuários.
+- **Feed Personalizado**: Endpoint que retorna os tweets do próprio usuário e das pessoas que ele segue.
+- **Perfil do Usuário**: Consulta de dados, incluindo a lista de tweets e seguidores.
+
+## 🚀 Como Executar o Projeto
+
+### Pré-requisitos
 
 Antes de começar, certifique-se de ter instalado:
+
 - [Node.js](https://nodejs.org/) (versão 18 ou superior)
 - [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/)
 - [Git](https://git-scm.com/)
 
-## Como Usar Este Template
+### Configuração
 
-Este repositório é um template no GitHub. Para usá-lo:
+1. Clone o repositório:
 
-1. Clique no botão **"Use this template"** no topo da página do repositório no GitHub.
-2. Escolha um nome para o seu novo repositório e clique em **"Create repository from template"**.
-3. Clone o repositório criado para sua máquina local:
    ```bash
-   git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-   cd SEU_REPOSITORIO
+   git clone [https://github.com/fabricio-milanio/growtwitter-api](https://github.com/fabricio-milanio/growtwitter-api)
+   cd growtwitter-api
+
    ```
 
-4. Configure as variáveis de ambiente (veja a seção de configuração abaixo).
+2. Crie um arquivo `.env` na raiz do projeto com base no arquivo `.env-example`:
 
-## Configuração
-
-1. Crie um arquivo `.env` na raiz do projeto com base no arquivo `.env-example`:
    ```env
    PORT=3030
    POSTGRES_USER=seu_usuario
@@ -43,7 +54,7 @@ Este repositório é um template no GitHub. Para usá-lo:
    DATABASE_URL="postgresql://seu_usuario:sua_senha@localhost:5432/seu_banco?schema=public"
    ```
 
-2. Ajuste as configurações no `prisma/schema.prisma` conforme necessário para o seu banco de dados.
+3. Ajuste as configurações no `prisma/schema.prisma` conforme necessário para o seu banco de dados.
 
 ## Instalação e Execução
 
@@ -52,6 +63,7 @@ Este repositório é um template no GitHub. Para usá-lo:
 1. Certifique-se de que o Docker e Docker Compose estão instalados e rodando.
 
 2. Execute o comando para construir e iniciar os containers:
+
    ```bash
    docker compose up --build
    ```
@@ -70,6 +82,7 @@ Este repositório é um template no GitHub. Para usá-lo:
 ### Sem Docker (Desenvolvimento Local)
 
 1. Instale as dependências:
+
    ```bash
    npm install
    ```
@@ -77,16 +90,19 @@ Este repositório é um template no GitHub. Para usá-lo:
 2. Configure o banco de dados PostgreSQL localmente ou use um serviço como ElephantSQL.
 
 3. Execute as migrações do Prisma:
+
    ```bash
    npx prisma migrate dev
    ```
 
 4. Gere o cliente Prisma:
+
    ```bash
    npx prisma generate
    ```
 
 5. Inicie o servidor em modo de desenvolvimento:
+
    ```bash
    npm run dev
    ```

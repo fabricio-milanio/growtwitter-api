@@ -7,16 +7,58 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-// Define your data models here
-model Example {
-    id            Int      @id @default(autoincrement())
-    fieldString   String   @map("field_string")
-    fieldNumber   Int      @map("field_number")
-    fieldBoolean  Boolean  @map("field_boolean")
-    fieldDate     DateTime @map("field_date")
-    fieldArray    String[] @map("field_array")
-    fieldObject   Json     @map("field_object")
-    fieldOptional String?  @map("field_optional")
+model User {
+    id           String     @id @default(uuid()) @db.Uuid
+    name         String     @db.VarChar(100)
+    username     String     @unique @db.VarChar(50)
+    email        String     @unique @db.VarChar(255)
+    password     String     @db.VarChar(255)
+    profileImage String     @map("profile_image") @db.VarChar(255)
+    createdAt    DateTime   @default(now()) @map("created_at")
+    updatedAt    DateTime   @default(now()) @updatedAt @map("updated_at")
+    tweets       Tweet[]
+    likes        Like[]
+    followers    Follower[] @relation("UserFollowers")
+    following    Follower[] @relation("UserFollowing")
+
+    @@map("users")
+}
+
+model Tweet {
+    id            String   @id @default(uuid()) @db.Uuid
+    content       String   @db.VarChar(500)
+    userId        String   @map("user_id") @db.Uuid
+    tweetParentId String?  @map("tweet_parent_id") @db.Uuid
     createdAt     DateTime @default(now()) @map("created_at")
-    updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
+
+    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    parent  Tweet?  @relation("TweetReplies", fields: [tweetParentId], references: [id], onDelete: Cascade)
+    replies Tweet[] @relation("TweetReplies")
+    likes   Like[]
+
+    @@map("tweets")
+}
+
+model Like {
+    id        String   @id @default(uuid()) @db.Uuid
+    tweetId   String   @map("tweet_id") @db.Uuid
+    userId    String   @map("user_id") @db.Uuid
+    createdAt DateTime @default(now()) @map("created_at")
+
+    tweet Tweet @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("likes")
+}
+
+model Follower {
+    id          String   @id @default(uuid()) @db.Uuid
+    followerId  String   @map("follower_id") @db.Uuid
+    followingId String   @map("following_id") @db.Uuid
+    createdAt   DateTime @default(now()) @map("created_at")
+
+    follower  User @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+    following User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+
+    @@map("followers")
 }

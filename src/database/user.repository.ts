@@ -1,14 +1,20 @@
-import { PrismaClient } from '@prisma/client';
 import { CreateUserDto } from '../dtos';
+import { prisma } from './prisma.conection';
 
 export class UserRepository {
   constructor() {}
 
-  private prisma: PrismaClient = new PrismaClient();
-
   public async createUser(data: CreateUserDto) {
-    return this.prisma.user.create({
+    return prisma.user.create({
       data: { ...data },
+    });
+  }
+
+  public async findByEmailOrUsername(email: string, username: string) {
+    return await prisma.user.findFirst({
+      where: {
+        OR: [{ email: email }, { username: username }],
+      },
     });
   }
 }

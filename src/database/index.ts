@@ -1,2 +1,2 @@
-export * from './prisma.repository';
+export * from './prisma.conection';
 export * from './user.repository';

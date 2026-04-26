@@ -1,20 +1,18 @@
-import { Example as ExampleEntity } from "@prisma/client";
+import { Example as ExampleEntity } from '@prisma/client';
 
-import { ExternalService } from ".";
-import prismaRepository from "../database/prisma.repository";
-import { CreateExampleDto, FindExampleDto, UpdateExampleDto } from "../dtos";
-import { Example } from "../models";
-import { HTTPError } from "../utils";
-import { JsonObject } from "@prisma/client/runtime/library";
+import { ExternalService } from '.';
+import prismaRepository from '../database/prisma.conection';
+import { CreateExampleDto, FindExampleDto, UpdateExampleDto } from '../dtos';
+import { Example } from '../models';
+import { HTTPError } from '../utils';
+import { JsonObject } from '@prisma/client/runtime/library';
 
 export class ExampleService {
-
   // Example of constructor with dependency injection
   constructor(
     private externalService: ExternalService,
     // You can inject other services or repositories as needed
-  ) { }
-
+  ) {}
 
   public async createExample(dto: CreateExampleDto): Promise<Example> {
     const newExample = await prismaRepository.example.create({
@@ -30,7 +28,7 @@ export class ExampleService {
     });
 
     if (!exampleDB) {
-      throw new HTTPError(404, "Example not found");
+      throw new HTTPError(404, 'Example not found');
     }
 
     return this.mapToModel(exampleDB);
@@ -73,7 +71,7 @@ export class ExampleService {
 
   public async listExamples(): Promise<Example[]> {
     const examplesDB = await prismaRepository.example.findMany({
-      orderBy: { createdAt: "desc" }
+      orderBy: { createdAt: 'desc' },
     });
 
     return examplesDB.map((example) => this.mapToModel(example));
@@ -83,7 +81,6 @@ export class ExampleService {
   public async logExampleAction(message: string): Promise<void> {
     await this.externalService.doLog(message);
   }
-
 
   // Example of a private method to map the database entity to the model
   // Add here any additional mapping logic if needed (e.g., formatting dates, transforming fields, etc.)
@@ -101,5 +98,4 @@ export class ExampleService {
       entity.updatedAt,
     );
   }
-
 }

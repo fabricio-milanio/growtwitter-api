@@ -9,6 +9,10 @@ export class User {
     private profileImage: string,
     private createdAt: Date,
     private updatedAt: Date,
+    private tweets?: any[],
+    private followers?: any[],
+    private following?: any[],
+    private stats?: any,
   ) {}
 
   public toJSON(): UserDto {
@@ -20,6 +24,9 @@ export class User {
       profileImage: this.profileImage,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      tweets: this.tweets,
+      followers: this.followers,
+      stats: this.stats,
     };
   }
 }

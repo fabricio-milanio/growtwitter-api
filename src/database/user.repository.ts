@@ -21,28 +21,30 @@ export class UserRepository {
   public async findUserById(id: string) {
     return await prisma.user.findUnique({
       where: { id },
+    });
+  }
+
+  //Quem o usuário está seguindo
+  public async findUsersFollowers(userId: string) {
+    return await prisma.follower.findMany({
+      where: { followingId: userId },
       include: {
-        tweets: {
-          orderBy: { createdAt: 'desc' },
-        },
-        followers: {
-          include: { follower: true },
-        },
-        following: {
-          include: { following: true },
-        },
-        _count: {
-          select: {
-            followers: true,
-            following: true,
-            tweets: true,
-          },
-        },
+        follower: true,
       },
     });
   }
 
-  public async findUsersFollow(
+  //Quem segue o usuário
+  public async findUsersFollowing(userId: string) {
+    return await prisma.follower.findMany({
+      where: { followerId: userId },
+      include: {
+        following: true,
+      },
+    });
+  }
+
+  public async findUserFollow(
     followerId: string,
     followingId: string,
   ): Promise<boolean> {

@@ -26,6 +26,7 @@ export class User {
       updatedAt: this.updatedAt,
       tweets: this.tweets,
       followers: this.followers,
+      following: this.following,
       stats: this.stats,
     };
   }

@@ -5,14 +5,6 @@ import { User } from '../models';
 import * as bcrypt from 'bcrypt';
 import { HTTPError } from '../utils';
 
-type UserWithRelations = Prisma.UserGetPayload<{
-  include: {
-    tweets: true;
-    followers: { include: { follower: true } };
-    _count: true;
-  };
-}>;
-
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
@@ -41,7 +33,7 @@ export class UserService {
     return this.mapToModel(newUser);
   }
 
-  public async getUserProfile(id: string): Promise<User> {
+  public async getUserById(id: string): Promise<User> {
     const user = await this.userRepository.findUserById(id);
 
     if (!user) {
@@ -51,17 +43,30 @@ export class UserService {
     return this.mapToModel(user);
   }
 
+  public async getUserProfile(id: string): Promise<User> {
+    const user = await this.userRepository.findUserById(id);
+    const following = await this.userRepository.findUsersFollowing(id);
+    const followers = await this.userRepository.findUsersFollowers(id);
+
+    if (!user) {
+      throw new HTTPError(404, 'Usuário não encontrado.');
+    }
+
+    return this.mapToModel({ ...user, following, followers });
+  }
+
   public async toggleFollow(followerId: string, followingId: string) {
     if (followerId === followingId) {
       throw new HTTPError(400, 'Você não pode seguir a si mesmo.');
     }
 
-    const profileUser = await this.userRepository.findUserById(followingId);
+    const profileUser = await this.userRepository.findUserById(followerId);
+
     if (!profileUser) {
       throw new HTTPError(404, 'Usuário alvo não encontrado.');
     }
 
-    const alreadyFollows = await this.userRepository.findUsersFollow(
+    const alreadyFollows = await this.userRepository.findUserFollow(
       followerId,
       followingId,
     );
@@ -90,9 +95,9 @@ export class UserService {
       entity.profileImage,
       entity.createdAt,
       entity.updatedAt,
-      entity.tweets ?? [],
-      entity.followers?.map((f: any) => f.follower) ?? [],
-      entity.following?.map((f: any) => f.following) ?? [],
+      entity.tweets?.map((t: any) => t),
+      entity.followers?.map((f: any) => f.follower),
+      entity.following?.map((f: any) => f.following),
       entity._count,
     );
   }

@@ -28,4 +28,59 @@ export class UserController {
       onError(error, res);
     }
   };
+
+  public getUserById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      const user = await this.userService.getUserProfile(id as string);
+
+      return HTTPResponse({
+        res,
+        statusCode: 200,
+        message: 'Perfil do usuário encontrado.',
+        data: user,
+      });
+    } catch (error) {
+      onError(error, res);
+    }
+  };
+
+  public followUser = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params as { id: string };
+      const { userId } = req.body as { userId: string };
+      const followedUser = await this.userService.getUserProfile(userId);
+
+      const result = await this.userService.toggleFollow(id, userId);
+
+      return HTTPResponse({
+        res,
+        statusCode: 200,
+        message: result.message,
+        data: { followed: followedUser },
+      });
+    } catch (error) {
+      onError(error, res);
+    }
+  };
+
+  public unfollowUser = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params as { id: string };
+      const { userId } = req.body as { userId: string };
+      const followedUser = await this.userService.getUserProfile(userId);
+
+      const result = await this.userService.toggleFollow(userId, id);
+
+      return HTTPResponse({
+        res,
+        statusCode: 200,
+        message: result.message,
+        data: { followed: followedUser },
+      });
+    } catch (error) {
+      onError(error, res);
+    }
+  };
 }

@@ -4,6 +4,10 @@ export interface UserDto {
   username: string;
   email: string;
   profileImage: string;
+  tweets?: any[];
+  followers?: any[];
+  following?: any[];
+  stats?: any;
   createdAt: Date;
   updatedAt: Date;
 }

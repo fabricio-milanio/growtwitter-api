@@ -52,7 +52,6 @@ model Like {
 }
 
 model Follower {
-    id          String   @id @default(uuid()) @db.Uuid
     followerId  String   @map("follower_id") @db.Uuid
     followingId String   @map("following_id") @db.Uuid
     createdAt   DateTime @default(now()) @map("created_at")
@@ -60,5 +59,6 @@ model Follower {
     follower  User @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
     following User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
 
+    @@id([followerId, followingId])
     @@map("followers")
 }

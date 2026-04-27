@@ -9,6 +9,7 @@ export class UserService {
   constructor(private userRepository: UserRepository) {}
 
   public async createUser(dto: CreateUserDto): Promise<User> {
+    console.log('Criando usuário com os seguintes dados:', dto);
     const userAlreadyExists = await this.userRepository.findByEmailOrUsername(
       dto.email,
       dto.username,

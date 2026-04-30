@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { onError } from '../utils';
+import { TweetService } from '../services';
 
 export class TweetController {
+  constructor(private tweetService: TweetService) {}
+
   public async createTweet(req: Request, res: Response) {
     try {
     } catch (error) {

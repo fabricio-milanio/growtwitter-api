@@ -70,10 +70,20 @@ export class TweetController {
     }
   };
 
-  public async unlikeTweet(req: Request, res: Response) {
+  public unlikeTweet = async (req: Request, res: Response) => {
     try {
+      const { tweetId, userId } = req.body;
+
+      const unlike = await this.tweetService.unlikeTweet(tweetId, userId);
+
+      HTTPResponse({
+        res,
+        statusCode: 200,
+        message: 'Removida a curtida do Tweet com sucesso.',
+        data: unlike,
+      });
     } catch (error) {
       onError(error, res);
     }
-  }
+  };
 }

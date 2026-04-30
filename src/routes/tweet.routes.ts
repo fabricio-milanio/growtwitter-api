@@ -37,10 +37,10 @@ export class TweetRoutes {
     );
 
     router.delete(
-      '/tweets/:id/unlike',
+      '/tweets/unlike',
       // authMiddleware,
-      dataValidation([param('id').isNumeric().isInt({ min: 1 })]),
-      //controller.unlikeTweet,
+      dataValidation([body('tweetId').isUUID(), body('userId').isUUID()]),
+      tweetController.unlikeTweet,
     );
 
     return router;

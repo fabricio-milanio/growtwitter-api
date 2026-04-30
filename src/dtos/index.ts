@@ -1,2 +1,2 @@
-export * from './example.dto';
+export * from './tweet.dto';
 export * from './user.dto';

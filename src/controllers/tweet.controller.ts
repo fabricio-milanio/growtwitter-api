@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { onError } from '../utils';
 import { TweetService } from '../services';
+import { HTTPResponse } from '../utils/http.response';
 
 export class TweetController {
   constructor(private tweetService: TweetService) {}
@@ -12,25 +13,17 @@ export class TweetController {
         content,
         userId,
       });
-      res.status(201).json(createdTweet.toJSON());
+
+      HTTPResponse({
+        res,
+        statusCode: 201,
+        message: 'Tweet criado com sucesso.',
+        data: createdTweet.toJSON(),
+      });
     } catch (error) {
       onError(error, res);
     }
   };
-
-  public async updateTweet(req: Request, res: Response) {
-    try {
-    } catch (error) {
-      onError(error, res);
-    }
-  }
-
-  public async deleteTweet(req: Request, res: Response) {
-    try {
-    } catch (error) {
-      onError(error, res);
-    }
-  }
 
   public createReplyTweet = async (req: Request, res: Response) => {
     try {
@@ -49,18 +42,33 @@ export class TweetController {
         tweetParentId,
       });
 
-      res.status(201).json(createdReply.toJSON());
+      HTTPResponse({
+        res,
+        statusCode: 201,
+        message: 'Resposta criada com sucesso.',
+        data: createdReply.toJSON(),
+      });
     } catch (error) {
       onError(error, res);
     }
   };
 
-  public async likeTweet(req: Request, res: Response) {
+  public likeTweet = async (req: Request, res: Response) => {
     try {
+      const { tweetId, userId } = req.body;
+
+      const like = await this.tweetService.likeTweet(tweetId, userId);
+
+      HTTPResponse({
+        res,
+        statusCode: 200,
+        message: 'Tweet curtido com sucesso.',
+        data: like,
+      });
     } catch (error) {
       onError(error, res);
     }
-  }
+  };
 
   public async unlikeTweet(req: Request, res: Response) {
     try {

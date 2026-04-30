@@ -18,19 +18,6 @@ export class TweetRepository {
     });
   }
 
-  public async updateTweet(tweetId: string, content: string) {
-    return await prisma.tweet.update({
-      where: { id: tweetId },
-      data: { content },
-    });
-  }
-
-  public async deleteTweet(tweetId: string) {
-    return await prisma.tweet.delete({
-      where: { id: tweetId },
-    });
-  }
-
   public async createReplyTweet(dto: CreateReplyDto): Promise<TweetDto> {
     return await prisma.tweet.create({
       data: {
@@ -56,6 +43,12 @@ export class TweetRepository {
   public async findReplies(tweetId: string) {
     return await prisma.tweet.findMany({
       where: { tweetParentId: tweetId },
+    });
+  }
+
+  public async findLikes(tweetId: string) {
+    return await prisma.like.findMany({
+      where: { tweetId },
     });
   }
 

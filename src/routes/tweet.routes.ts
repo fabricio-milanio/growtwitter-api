@@ -29,28 +29,11 @@ export class TweetRoutes {
       tweetController.createReplyTweet,
     );
 
-    router.put(
-      '/tweets/:id',
-      // authMiddleware,
-      dataValidation([
-        param('id').isNumeric().isInt({ min: 1 }),
-        body('fieldOptional').optional().isString(),
-      ]),
-      //controller.updateExample,
-    );
-
-    router.delete(
-      '/tweets/:id',
-      // authMiddleware,
-      dataValidation([param('id').isNumeric().isInt({ min: 1 })]),
-      //controller.deleteExample,
-    );
-
     router.post(
-      '/tweets/:id/like',
+      '/tweets/like',
       // authMiddleware,
-      dataValidation([param('id').isNumeric().isInt({ min: 1 })]),
-      //controller.likeTweet,
+      dataValidation([body('tweetId').isUUID(), body('userId').isUUID()]),
+      tweetController.likeTweet,
     );
 
     router.delete(

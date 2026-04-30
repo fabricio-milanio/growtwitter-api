@@ -5,12 +5,19 @@ import { TweetService } from '../services';
 export class TweetController {
   constructor(private tweetService: TweetService) {}
 
-  public async createTweet(req: Request, res: Response) {
+  public createTweet = async (req: Request, res: Response) => {
     try {
+      const { content, userId, tweetParentId } = req.body;
+      const createdTweet = await this.tweetService.createTweet({
+        content,
+        userId,
+        tweetParentId,
+      });
+      res.status(201).json(createdTweet.toJSON());
     } catch (error) {
       onError(error, res);
     }
-  }
+  };
 
   public async updateTweet(req: Request, res: Response) {
     try {

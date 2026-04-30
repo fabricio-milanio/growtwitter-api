@@ -1,12 +1,12 @@
 import { TweetRepository } from '../database';
-import { TweetDto } from '../dtos';
-import { Tweet, User } from '../models';
+import { CreateTweetDto, TweetDto } from '../dtos';
+import { Tweet } from '../models';
 import { HTTPError } from '../utils';
 
 export class TweetService {
   constructor(private tweetRepository: TweetRepository) {}
 
-  public async createTweet(dto: TweetDto) {
+  public async createTweet(dto: CreateTweetDto): Promise<Tweet> {
     const createdTweet = await this.tweetRepository.createTweet(dto);
     return this.mapToModel(createdTweet);
   }
@@ -16,8 +16,8 @@ export class TweetService {
       entity.id,
       entity.content,
       entity.userId,
-      entity.tweetParentId || null,
       entity.createdAt,
+      entity.tweetParentId,
     );
   }
 }

@@ -5,9 +5,9 @@ export class Tweet {
     private id: string,
     private content: string,
     private userId: string,
-    private tweetParentId: string | null,
     private createdAt: Date,
-    private replies?: any[],
+    private tweetParentId?: string | null,
+    private replies?: Tweet[],
   ) {}
 
   public toJSON(): TweetDto {

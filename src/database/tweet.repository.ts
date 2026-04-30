@@ -1,10 +1,10 @@
-import { CreateUserDto, TweetDto } from '../dtos';
+import { CreateTweetDto, CreateUserDto, TweetDto } from '../dtos';
 import { prisma } from './prisma.conection';
 
 export class TweetRepository {
   constructor() {}
 
-  public async createTweet(dto: TweetDto): Promise<TweetDto> {
+  public async createTweet(dto: CreateTweetDto): Promise<TweetDto> {
     return await prisma.tweet.create({
       data: {
         content: dto.content,

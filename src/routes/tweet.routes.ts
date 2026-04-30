@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, param } from 'express-validator';
 import { dataValidation } from '../middlewares';
+import { tweetController } from '../container/tweet.container';
 
 export class TweetRoutes {
   public static bind() {
@@ -10,31 +11,11 @@ export class TweetRoutes {
       '/tweets',
       // authMiddleware,
       dataValidation([
-        body('fieldString').isString().isLength({ min: 1 }),
-        body('fieldNumber').isNumeric().isInt({ min: 0 }),
-        body('fieldBoolean').isBoolean(),
-
-        // array of strings
-        body('fieldArray').isArray(),
-        body('fieldArray.*').isString(),
-
-        // nested object
-        body('fieldObject').isObject(),
-        body('fieldObject.nestedField1').isString().isLength({ min: 1 }),
-        body('fieldObject.nestedField2').isNumeric().isInt({ min: 0 }),
-
-        // optional fields
-        body('fieldOptional').optional().isString(),
-
-        // custom validation
-        body('fieldCustom').custom((value: any) => {
-          if (value !== 'validValue') {
-            throw new Error("fieldCustom must be 'validValue'");
-          }
-          return true;
-        }),
+        body('content').isString().isLength({ min: 1, max: 280 }),
+        body('userId').isUUID(),
+        body('tweetParentId').optional({ nullable: true }).isUUID(),
       ]),
-      //controller.createExample,
+      tweetController.createTweet,
     );
 
     router.post(

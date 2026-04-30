@@ -19,13 +19,14 @@ export class TweetRoutes {
     );
 
     router.post(
-      '/tweets/:id/reply',
+      '/tweets/reply',
       // authMiddleware,
       dataValidation([
-        param('id').isNumeric().isInt({ min: 1 }),
-        body('comment').isString().isLength({ min: 1 }),
+        body('content').isString().isLength({ min: 1, max: 280 }),
+        body('userId').isUUID(),
+        body('tweetParentId').isUUID(),
       ]),
-      //controller.addComment,
+      tweetController.createReplyTweet,
     );
 
     router.put(

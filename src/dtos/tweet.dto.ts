@@ -12,5 +12,10 @@ export interface TweetDto {
 export interface CreateTweetDto {
   content: string;
   userId: string;
-  tweetParentId?: string | null;
+}
+
+export interface CreateReplyDto {
+  content: string;
+  userId: string;
+  tweetParentId: string;
 }

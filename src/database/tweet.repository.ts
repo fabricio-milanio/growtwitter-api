@@ -1,4 +1,9 @@
-import { CreateTweetDto, CreateUserDto, TweetDto } from '../dtos';
+import {
+  CreateReplyDto,
+  CreateTweetDto,
+  CreateUserDto,
+  TweetDto,
+} from '../dtos';
 import { prisma } from './prisma.conection';
 
 export class TweetRepository {
@@ -9,7 +14,6 @@ export class TweetRepository {
       data: {
         content: dto.content,
         userId: dto.userId,
-        tweetParentId: dto.tweetParentId,
       },
     });
   }
@@ -27,10 +31,26 @@ export class TweetRepository {
     });
   }
 
+  public async createReplyTweet(dto: CreateReplyDto): Promise<TweetDto> {
+    return await prisma.tweet.create({
+      data: {
+        content: dto.content,
+        userId: dto.userId,
+        tweetParentId: dto.tweetParentId,
+      },
+    });
+  }
+
   public async findTweetById(tweetId: string) {
-    return await prisma.tweet.findUnique({
+    const tweet = await prisma.tweet.findUnique({
       where: { id: tweetId },
     });
+
+    if (!tweet) {
+      return null;
+    }
+
+    return tweet;
   }
 
   public async findReplies(tweetId: string) {

@@ -11,7 +11,6 @@ export class TweetController {
       const createdTweet = await this.tweetService.createTweet({
         content,
         userId,
-        tweetParentId,
       });
       res.status(201).json(createdTweet.toJSON());
     } catch (error) {
@@ -33,12 +32,28 @@ export class TweetController {
     }
   }
 
-  public async createReplyTweet(req: Request, res: Response) {
+  public createReplyTweet = async (req: Request, res: Response) => {
     try {
+      const { content, userId, tweetParentId } = req.body;
+
+      if (!tweetParentId) {
+        return res.status(400).json({
+          success: false,
+          message: 'O campo tweetParentId é obrigatório para respostas.',
+        });
+      }
+
+      const createdReply = await this.tweetService.createReplyTweet({
+        content,
+        userId,
+        tweetParentId,
+      });
+
+      res.status(201).json(createdReply.toJSON());
     } catch (error) {
       onError(error, res);
     }
-  }
+  };
 
   public async likeTweet(req: Request, res: Response) {
     try {

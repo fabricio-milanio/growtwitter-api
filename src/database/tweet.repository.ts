@@ -46,6 +46,42 @@ export class TweetRepository {
     });
   }
 
+  public async getFullFeed(userIds: string[]) {
+    return await prisma.tweet.findMany({
+      where: {
+        userId: { in: userIds },
+        tweetParentId: null,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            username: true,
+            profileImage: true,
+          },
+        },
+        replies: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                username: true,
+                profileImage: true,
+              },
+            },
+          },
+          orderBy: { createdAt: 'asc' },
+        },
+        _count: {
+          select: { likes: true, replies: true },
+        },
+      },
+      orderBy: { createdAt: 'desc' }, // Tweets mais novos primeiro
+    });
+  }
+
   public async findLikes(tweetId: string) {
     return await prisma.like.findMany({
       where: { tweetId },
@@ -77,6 +113,15 @@ export class TweetRepository {
       where: { userId },
       orderBy: {
         createdAt: 'desc',
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            username: true,
+            profileImage: true,
+          },
+        },
       },
     });
   };

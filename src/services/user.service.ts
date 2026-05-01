@@ -73,21 +73,13 @@ export class UserService {
 
     const following = await this.userRepository.findUsersFollowing(userId);
     const followingUserId = following.map((f) => f.followingId);
-    console.log(followingUserId);
     const userTweets = await this.tweetRepository.findTweetsByUserId(userId);
-    const followingTweets = (
-      await Promise.all(
-        followingUserId.map(async (id) => {
-          return await this.tweetRepository.findTweetsByUserId(id);
-        }),
-      )
-    ).flat();
 
-    console.log(followingTweets);
+    const feed = await this.tweetRepository.getFullFeed(followingUserId);
 
     return this.mapToModel({
       ...user,
-      tweets: [...userTweets, ...followingTweets],
+      tweets: [...userTweets, ...feed],
     });
   }
 
@@ -108,7 +100,7 @@ export class UserService {
     );
 
     if (alreadyFollows) {
-      throw new HTTPError(404, 'Você já segue este usuário.');
+      throw new HTTPError(400, 'Você já segue este usuário.');
     }
 
     await this.userRepository.followUser(followerId, followingId);
@@ -136,7 +128,7 @@ export class UserService {
 
     await this.userRepository.unfollowUser(followerId, followingId);
     return {
-      followed: true,
+      followed: false,
       message: 'Você deixou de seguir este usuário.',
     };
   }

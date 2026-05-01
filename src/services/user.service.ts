@@ -1,12 +1,14 @@
-import { User as UserEntity, Prisma } from '@prisma/client';
-import { UserRepository } from '../database';
+import { TweetRepository, UserRepository } from '../database';
 import { CreateUserDto } from '../dtos';
 import { User } from '../models';
 import * as bcrypt from 'bcrypt';
 import { HTTPError } from '../utils';
 
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private tweetRepository: TweetRepository,
+  ) {}
 
   public async createUser(dto: CreateUserDto): Promise<User> {
     const userAlreadyExists =
@@ -47,12 +49,18 @@ export class UserService {
     const user = await this.userRepository.findUserById(id);
     const following = await this.userRepository.findUsersFollowing(id);
     const followers = await this.userRepository.findUsersFollowers(id);
+    const userTweets = await this.tweetRepository.findTweetsByUserId(id);
 
     if (!user) {
       throw new HTTPError(404, 'Usuário não encontrado.');
     }
 
-    return this.mapToModel({ ...user, following, followers });
+    return this.mapToModel({
+      ...user,
+      following,
+      followers,
+      tweets: userTweets,
+    });
   }
 
   public async toggleFollow(followerId: string, followingId: string) {

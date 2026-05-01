@@ -95,6 +95,25 @@ export class TweetService {
     await this.tweetRepository.unlikeTweet(tweetId, userId);
   }
 
+  public getUserTweets = async (userId: string): Promise<Tweet[]> => {
+    if (!isUUID(userId)) {
+      throw new HTTPError(
+        400,
+        'O ID do usuário fornecido deve ser um UUID válido.',
+      );
+    }
+
+    const user = await this.userRepository.findUserById(userId);
+
+    if (!user) {
+      throw new HTTPError(404, 'Usuário não foi encontrado.');
+    }
+
+    const tweets = await this.tweetRepository.findTweetsByUserId(userId);
+
+    return tweets.map((tweet) => this.mapToModel(tweet));
+  };
+
   private mapToModel(entity: TweetDto): Tweet {
     return new Tweet(
       entity.id,

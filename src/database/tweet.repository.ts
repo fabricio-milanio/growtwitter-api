@@ -71,4 +71,13 @@ export class TweetRepository {
       },
     });
   }
+
+  public findTweetsByUserId = async (userId: string) => {
+    return await prisma.tweet.findMany({
+      where: { userId },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  };
 }

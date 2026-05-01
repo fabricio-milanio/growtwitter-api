@@ -50,7 +50,7 @@ export class UserController {
     try {
       const { id } = req.params as { id: string };
       const { userId } = req.body as { userId: string };
-      const followedUser = await this.userService.getUserProfile(userId);
+      const followedUser = await this.userService.getUserById(userId);
 
       const result = await this.userService.toggleFollow(id, userId);
 
@@ -69,7 +69,7 @@ export class UserController {
     try {
       const { id } = req.params as { id: string };
       const { userId } = req.body as { userId: string };
-      const followedUser = await this.userService.getUserProfile(userId);
+      const followedUser = await this.userService.getUserById(userId);
 
       const result = await this.userService.toggleFollow(userId, id);
 

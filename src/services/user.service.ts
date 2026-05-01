@@ -91,7 +91,7 @@ export class UserService {
     });
   }
 
-  public async toggleFollow(followerId: string, followingId: string) {
+  public async followUser(followerId: string, followingId: string) {
     if (followerId === followingId) {
       throw new HTTPError(400, 'Você não pode seguir a si mesmo.');
     }
@@ -108,17 +108,36 @@ export class UserService {
     );
 
     if (alreadyFollows) {
-      await this.userRepository.unfollowUser(followerId, followingId);
-      return {
-        followed: false,
-        message: 'Você deixou de seguir este usuário.',
-      };
+      throw new HTTPError(404, 'Você já segue este usuário.');
     }
 
     await this.userRepository.followUser(followerId, followingId);
     return {
       followed: true,
       message: 'Agora você está seguindo este usuário.',
+    };
+  }
+
+  public async unfollowUser(followerId: string, followingId: string) {
+    const profileUser = await this.userRepository.findUserById(followerId);
+
+    if (!profileUser) {
+      throw new HTTPError(404, 'Usuário alvo não encontrado.');
+    }
+
+    const alreadyFollows = await this.userRepository.findUserFollow(
+      followerId,
+      followingId,
+    );
+
+    if (!alreadyFollows) {
+      throw new HTTPError(404, 'Você não segue este usuário.');
+    }
+
+    await this.userRepository.unfollowUser(followerId, followingId);
+    return {
+      followed: true,
+      message: 'Você deixou de seguir este usuário.',
     };
   }
 

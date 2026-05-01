@@ -52,7 +52,7 @@ export class UserController {
       const { userId } = req.body as { userId: string };
       const followedUser = await this.userService.getUserById(userId);
 
-      const result = await this.userService.toggleFollow(id, userId);
+      const result = await this.userService.followUser(id, userId);
 
       return HTTPResponse({
         res,
@@ -71,7 +71,7 @@ export class UserController {
       const { userId } = req.body as { userId: string };
       const followedUser = await this.userService.getUserById(userId);
 
-      const result = await this.userService.toggleFollow(userId, id);
+      const result = await this.userService.unfollowUser(id, userId);
 
       return HTTPResponse({
         res,

@@ -29,7 +29,7 @@ export class UserController {
     }
   };
 
-  public getUserById = async (req: Request, res: Response) => {
+  public getUserProfile = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
 
@@ -78,6 +78,21 @@ export class UserController {
         statusCode: 200,
         message: result.message,
         data: { followed: followedUser },
+      });
+    } catch (error) {
+      onError(error, res);
+    }
+  };
+
+  public getUserFeed = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params as { id: string };
+      const userFeed = await this.userService.getUserFeed(id);
+      return HTTPResponse({
+        res,
+        statusCode: 200,
+        message: 'Feed do usuário carregado com sucesso.',
+        data: userFeed,
       });
     } catch (error) {
       onError(error, res);

@@ -7,6 +7,26 @@ export class UserRoutes {
   public static bind() {
     const router = express.Router();
 
+    router.get(
+      '/user/feed/:id',
+      // dataValidation([
+      //   body('userId')
+      //     .isUUID()
+      //     .withMessage('O ID do usuário deve ser um UUID válido'),
+      // ]),
+      userController.getUserFeed,
+    );
+
+    router.get(
+      '/user/:id',
+      dataValidation([
+        param('id')
+          .isUUID()
+          .withMessage('O ID do usuário deve ser um UUID válido'),
+      ]),
+      userController.getUserProfile,
+    );
+
     router.post(
       '/users',
       dataValidation([
@@ -37,16 +57,6 @@ export class UserRoutes {
           .withMessage('A imagem de perfil deve ser um link (URL) válido'),
       ]),
       userController.createUser,
-    );
-
-    router.get(
-      '/users/:id',
-      dataValidation([
-        param('id')
-          .isUUID()
-          .withMessage('O ID do usuário deve ser um UUID válido'),
-      ]),
-      userController.getUserById,
     );
 
     router.post(

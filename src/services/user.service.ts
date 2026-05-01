@@ -63,6 +63,34 @@ export class UserService {
     });
   }
 
+  //Cria o feed do usuário, juntando seus tweets com os tweets dos usuários que ele segue'
+  public async getUserFeed(userId: string): Promise<User> {
+    const user = await this.userRepository.findUserById(userId);
+
+    if (!user) {
+      throw new HTTPError(404, 'Usuário não encontrado.');
+    }
+
+    const following = await this.userRepository.findUsersFollowing(userId);
+    const followingUserId = following.map((f) => f.followingId);
+    console.log(followingUserId);
+    const userTweets = await this.tweetRepository.findTweetsByUserId(userId);
+    const followingTweets = (
+      await Promise.all(
+        followingUserId.map(async (id) => {
+          return await this.tweetRepository.findTweetsByUserId(id);
+        }),
+      )
+    ).flat();
+
+    console.log(followingTweets);
+
+    return this.mapToModel({
+      ...user,
+      tweets: [...userTweets, ...followingTweets],
+    });
+  }
+
   public async toggleFollow(followerId: string, followingId: string) {
     if (followerId === followingId) {
       throw new HTTPError(400, 'Você não pode seguir a si mesmo.');

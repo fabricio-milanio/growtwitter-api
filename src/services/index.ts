@@ -1,4 +1,4 @@
-export * from './example.service';
+export * from './auth.service';
 export * from './external.service';
 export * from './user.service';
 export * from './tweet.service';

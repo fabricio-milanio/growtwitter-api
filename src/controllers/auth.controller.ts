@@ -1,13 +1,16 @@
 import { Request, Response } from 'express';
 import { onError } from '../utils';
 import { HTTPResponse } from '../utils/http.response';
+import { AuthService } from '../services';
 
 export class AuthController {
-  public async login(req: Request, res: Response) {
+  constructor(private authService: AuthService) {}
+
+  public login = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
 
-      const result = 'Resultado da autenticação';
+      const result = await this.authService.loginService({ email, password });
 
       return HTTPResponse({
         res,
@@ -18,5 +21,5 @@ export class AuthController {
     } catch (error) {
       onError(error, res);
     }
-  }
+  };
 }

@@ -63,7 +63,7 @@ export class UserService {
     });
   }
 
-  //Cria o feed do usuário, juntando seus tweets com os tweets dos usuários que ele segue'
+  //Cria o feed do usuário, juntando seus tweets com os tweets dos usuários que ele segue'y
   public async getUserFeed(userId: string): Promise<User> {
     const user = await this.userRepository.findUserById(userId);
 

@@ -1,6 +1,6 @@
 import express from 'express';
-import { body, param } from 'express-validator';
-import { dataValidation } from '../middlewares';
+import { body } from 'express-validator';
+import { authMiddleware, dataValidation } from '../middlewares';
 import { tweetController } from '../container';
 
 export class TweetRoutes {
@@ -9,7 +9,7 @@ export class TweetRoutes {
 
     router.post(
       '/tweets',
-      // authMiddleware,
+      authMiddleware,
       dataValidation([
         body('content').isString().isLength({ min: 1, max: 280 }),
         body('userId').isUUID(),
@@ -20,7 +20,7 @@ export class TweetRoutes {
 
     router.post(
       '/tweets/reply',
-      // authMiddleware,
+      authMiddleware,
       dataValidation([
         body('content').isString().isLength({ min: 1, max: 280 }),
         body('userId').isUUID(),
@@ -31,14 +31,14 @@ export class TweetRoutes {
 
     router.post(
       '/tweets/like',
-      // authMiddleware,
+      authMiddleware,
       dataValidation([body('tweetId').isUUID(), body('userId').isUUID()]),
       tweetController.likeTweet,
     );
 
     router.delete(
       '/tweets/unlike',
-      // authMiddleware,
+      authMiddleware,
       dataValidation([body('tweetId').isUUID(), body('userId').isUUID()]),
       tweetController.unlikeTweet,
     );

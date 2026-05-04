@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, param } from 'express-validator';
-import { dataValidation } from '../middlewares';
+import { authMiddleware, dataValidation } from '../middlewares';
 import { userController } from '../container';
 
 export class UserRoutes {
@@ -9,6 +9,7 @@ export class UserRoutes {
 
     router.get(
       '/user/feed/:id',
+      authMiddleware,
       // dataValidation([
       //   body('userId')
       //     .isUUID()
@@ -19,6 +20,7 @@ export class UserRoutes {
 
     router.get(
       '/user/:id',
+      authMiddleware,
       dataValidation([
         param('id')
           .isUUID()
@@ -61,6 +63,7 @@ export class UserRoutes {
 
     router.post(
       '/users/:id/follow',
+      authMiddleware,
       dataValidation([
         param('id')
           .isUUID()
@@ -75,6 +78,7 @@ export class UserRoutes {
 
     router.delete(
       '/users/:id/unfollow',
+      authMiddleware,
       dataValidation([
         param('id')
           .isUUID()

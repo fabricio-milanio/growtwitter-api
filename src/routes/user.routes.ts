@@ -27,16 +27,16 @@ export class UserRoutes {
             message: 'Feed do usuário carregado com sucesso.',
             data: {
               id: '550e8400-e29b-41d4-a716-446655440000',
-              name: 'Nome do usuário',
-              username: 'username',
-              email: 'usuario@email.com',
+              name: 'Fabrício Silva',
+              username: 'fabricio_silva',
+              email: 'fabricio@email.com',
               profileImage: 'https://url-da-imagem.com/foto.jpg',
               createdAt: '2024-01-01T00:00:00.000Z',
               updatedAt: '2024-01-01T00:00:00.000Z',
               tweets: [
                 {
                   id: '550e8400-e29b-41d4-a716-446655440001',
-                  content: 'Conteúdo do tweet',
+                  content: 'Meu primeiro tweet!',
                   userId: '550e8400-e29b-41d4-a716-446655440000',
                   tweetParentId: null,
                   createdAt: '2024-01-01T00:00:00.000Z',
@@ -47,6 +47,7 @@ export class UserRoutes {
           }
         }
         #swagger.responses[404] = { description: 'Usuário não encontrado' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       userController.getUserFeed,
@@ -72,9 +73,9 @@ export class UserRoutes {
             message: 'Perfil do usuário encontrado.',
             data: {
               id: '550e8400-e29b-41d4-a716-446655440000',
-              name: 'Nome do usuário',
-              username: 'username',
-              email: 'usuario@email.com',
+              name: 'Fabrício Silva',
+              username: 'fabricio_silva',
+              email: 'fabricio@email.com',
               profileImage: 'https://url-da-imagem.com/foto.jpg',
               createdAt: '2024-01-01T00:00:00.000Z',
               updatedAt: '2024-01-01T00:00:00.000Z',
@@ -87,6 +88,7 @@ export class UserRoutes {
         }
         #swagger.responses[400] = { description: 'UUID inválido' }
         #swagger.responses[404] = { description: 'Usuário não encontrado' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       dataValidation([
@@ -106,9 +108,9 @@ export class UserRoutes {
           in: 'body',
           required: true,
           schema: {
-            name: 'Nome Completo',
-            username: 'nome_usuario',
-            email: 'usuario@email.com',
+            name: 'Fabrício Silva',
+            username: 'fabricio_silva',
+            email: 'fabricio@email.com',
             password: 'senha123',
             profileImage: 'https://url-da-imagem.com/foto.jpg'
           }
@@ -120,9 +122,9 @@ export class UserRoutes {
             message: 'Usuário criado com sucesso!',
             data: {
               id: '550e8400-e29b-41d4-a716-446655440000',
-              name: 'Nome Completo',
-              username: 'nome_usuario',
-              email: 'usuario@email.com',
+              name: 'Fabrício Silva',
+              username: 'fabricio_silva',
+              email: 'fabricio@email.com',
               profileImage: 'https://url-da-imagem.com/foto.jpg',
               createdAt: '2024-01-01T00:00:00.000Z',
               updatedAt: '2024-01-01T00:00:00.000Z'
@@ -159,7 +161,7 @@ export class UserRoutes {
           in: 'body',
           required: true,
           schema: {
-            userId: '550e8400-e29b-41d4-a716-446655440001'
+            userId: '550e8400-e29b-41d4-a716-446655440002'
           }
         }
         #swagger.responses[200] = {
@@ -169,10 +171,10 @@ export class UserRoutes {
             message: 'Agora você está seguindo este usuário.',
             data: {
               followed: {
-                id: '550e8400-e29b-41d4-a716-446655440001',
-                name: 'Nome do usuário seguido',
-                username: 'username_seguido',
-                email: 'seguido@email.com',
+                id: '550e8400-e29b-41d4-a716-446655440002',
+                name: 'Outro Usuário',
+                username: 'outro_usuario',
+                email: 'outro@email.com',
                 profileImage: 'https://url-da-imagem.com/foto.jpg',
                 createdAt: '2024-01-01T00:00:00.000Z',
                 updatedAt: '2024-01-01T00:00:00.000Z'
@@ -183,6 +185,7 @@ export class UserRoutes {
         #swagger.responses[400] = { description: 'Você não pode seguir a si mesmo.' }
         #swagger.responses[400] = { description: 'Você já segue este usuário' }
         #swagger.responses[404] = { description: 'Usuário alvo não encontrado' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       dataValidation([
@@ -215,7 +218,7 @@ export class UserRoutes {
           in: 'body',
           required: true,
           schema: {
-            userId: '550e8400-e29b-41d4-a716-446655440001'
+            userId: '550e8400-e29b-41d4-a716-446655440002'
           }
         }
         #swagger.responses[200] = {
@@ -225,10 +228,10 @@ export class UserRoutes {
             message: 'Você deixou de seguir este usuário.',
             data: {
               followed: {
-                id: '550e8400-e29b-41d4-a716-446655440001',
-                name: 'Nome do usuário desseguido',
-                username: 'username_desseguido',
-                email: 'desseguido@email.com',
+                id: '550e8400-e29b-41d4-a716-446655440002',
+                name: 'Outro Usuário',
+                username: 'outro_usuario',
+                email: 'outro@email.com',
                 profileImage: 'https://url-da-imagem.com/foto.jpg',
                 createdAt: '2024-01-01T00:00:00.000Z',
                 updatedAt: '2024-01-01T00:00:00.000Z'
@@ -238,6 +241,7 @@ export class UserRoutes {
         }
         #swagger.responses[404] = { description: 'Usuário alvo não encontrado' }
         #swagger.responses[404] = { description: 'Você não segue este usuário' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       dataValidation([

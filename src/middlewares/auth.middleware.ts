@@ -8,7 +8,7 @@ export const authMiddleware = (
   next: NextFunction,
 ) => {
   try {
-    const authHeader = `Bearer ${req.headers.authorization}`;
+    const authHeader = req.headers.authorization;
 
     if (!authHeader) {
       return HTTPResponse({

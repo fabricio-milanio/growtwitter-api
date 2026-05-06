@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import swaggerFile from './swagger-output.json';
+import swaggerFile from './swagger.json';
 
 class App {
   public app: express.Application;

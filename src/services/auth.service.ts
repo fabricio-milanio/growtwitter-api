@@ -26,7 +26,8 @@ export class AuthService {
     const expiresIn = process.env.JWT_EXPIRES_IN;
 
     if (!secret || !expiresIn) {
-      throw new Error(
+      throw new HTTPError(
+        400,
         'As variáveis de ambiente JWT_SECRET e JWT_EXPIRES_IN devem estar configuradas.',
       );
     }

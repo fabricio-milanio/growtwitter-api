@@ -21,13 +21,13 @@ export const authMiddleware = (
     const partsJWT = authHeader.split(' ');
     const [bearer, token] = partsJWT;
 
-    // if (partsJWT.length !== 2) {
-    //   return HTTPResponse({
-    //     res,
-    //     statusCode: 401,
-    //     message: 'Erro no formato do token',
-    //   });
-    // }
+    if (partsJWT.length !== 2) {
+      return HTTPResponse({
+        res,
+        statusCode: 401,
+        message: 'Erro no formato do token',
+      });
+    }
 
     if (!/^Bearer$/i.test(bearer)) {
       return HTTPResponse({

@@ -21,6 +21,7 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Credenciais de acesso",
             "required": true,
             "schema": {
               "type": "object",
@@ -61,37 +62,7 @@
                           "example": "jwt_token_aqui"
                         },
                         "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440000"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Fabrício Silva"
-                            },
-                            "username": {
-                              "type": "string",
-                              "example": "fabricio_silva"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "fabricio@email.com"
-                            },
-                            "profileImage": {
-                              "type": "string",
-                              "example": "https://url-da-imagem.com/foto.jpg"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            }
-                          }
+                          "$ref": "#/components/User"
                         }
                       }
                     }
@@ -121,37 +92,7 @@
                           "example": "jwt_token_aqui"
                         },
                         "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440000"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Fabrício Silva"
-                            },
-                            "username": {
-                              "type": "string",
-                              "example": "fabricio_silva"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "fabricio@email.com"
-                            },
-                            "profileImage": {
-                              "type": "string",
-                              "example": "https://url-da-imagem.com/foto.jpg"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            }
-                          }
+                          "$ref": "#/components/User"
                         }
                       }
                     }
@@ -166,7 +107,8 @@
           "401": {
             "description": "E-mail ou senha inválidos"
           }
-        }
+        },
+        "security": []
       }
     },
     "/tweets": {
@@ -174,7 +116,7 @@
         "tags": [
           "Tweets"
         ],
-        "description": "Cria um novo tweet",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -189,113 +131,15 @@
                 },
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440000"
+                  "example": "SEU-UUID-AQUI"
                 }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Tweet criado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Tweet criado com sucesso."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440001"
-                        },
-                        "content": {
-                          "type": "string",
-                          "example": "Meu primeiro tweet!"
-                        },
-                        "userId": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "tweetParentId": {},
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "replies": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Tweet criado com sucesso."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440001"
-                        },
-                        "content": {
-                          "type": "string",
-                          "example": "Meu primeiro tweet!"
-                        },
-                        "userId": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "tweetParentId": {},
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "replies": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Dados inválidos"
-          },
-          "401": {
-            "description": "Não autorizado"
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -310,7 +154,7 @@
         "tags": [
           "Tweets"
         ],
-        "description": "Cria uma resposta para um tweet existente",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -321,130 +165,23 @@
               "properties": {
                 "content": {
                   "type": "string",
-                  "example": "Respondendo ao seu tweet!"
+                  "example": "Resposta!"
                 },
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440000"
+                  "example": "SEU-UUID-AQUI"
                 },
                 "tweetParentId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440001"
+                  "example": "UUID-DO-TWEET-PAI"
                 }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Resposta criada com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Resposta criada com sucesso."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440002"
-                        },
-                        "content": {
-                          "type": "string",
-                          "example": "Respondendo ao seu tweet!"
-                        },
-                        "userId": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "tweetParentId": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440001"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "replies": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Resposta criada com sucesso."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440002"
-                        },
-                        "content": {
-                          "type": "string",
-                          "example": "Respondendo ao seu tweet!"
-                        },
-                        "userId": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "tweetParentId": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440001"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "replies": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "O ID fornecido não é um UUID válido."
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "404": {
-            "description": "Tweet a ser respondido não foi encontrado"
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -459,7 +196,7 @@
         "tags": [
           "Tweets"
         ],
-        "description": "Curte um tweet",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -470,68 +207,19 @@
               "properties": {
                 "tweetId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440001"
+                  "example": "UUID-DO-TWEET"
                 },
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440000"
+                  "example": "SEU-UUID-AQUI"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Tweet curtido com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Tweet curtido com sucesso."
-                    },
-                    "data": {}
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Tweet curtido com sucesso."
-                    },
-                    "data": {}
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Você já curtiu este tweet."
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "404": {
-            "description": "Usuário não foi encontrado."
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -546,7 +234,7 @@
         "tags": [
           "Tweets"
         ],
-        "description": "Remove a curtida de um tweet",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -557,68 +245,19 @@
               "properties": {
                 "tweetId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440001"
+                  "example": "UUID-DO-TWEET"
                 },
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440000"
+                  "example": "SEU-UUID-AQUI"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Curtida removida com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Removida a curtida do Tweet com sucesso."
-                    },
-                    "data": {}
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Removida a curtida do Tweet com sucesso."
-                    },
-                    "data": {}
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Você não curtiu este tweet."
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "404": {
-            "description": "Usuário não foi encontrado."
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -633,7 +272,7 @@
         "tags": [
           "Users"
         ],
-        "description": "Retorna o feed do usuário com seus tweets e os tweets de quem ele segue",
+        "description": "Retorna o feed do usuário",
         "parameters": [
           {
             "name": "id",
@@ -641,365 +280,12 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "ID do usuário",
-            "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Feed carregado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Feed do usuário carregado com sucesso."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Fabrício Silva"
-                        },
-                        "username": {
-                          "type": "string",
-                          "example": "fabricio_silva"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "fabricio@email.com"
-                        },
-                        "profileImage": {
-                          "type": "string",
-                          "example": "https://url-da-imagem.com/foto.jpg"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "tweets": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "example": "550e8400-e29b-41d4-a716-446655440001"
-                              },
-                              "content": {
-                                "type": "string",
-                                "example": "Meu primeiro tweet!"
-                              },
-                              "userId": {
-                                "type": "string",
-                                "example": "550e8400-e29b-41d4-a716-446655440000"
-                              },
-                              "tweetParentId": {},
-                              "createdAt": {
-                                "type": "string",
-                                "example": "2024-01-01T00:00:00.000Z"
-                              },
-                              "replies": {
-                                "type": "array",
-                                "example": [],
-                                "items": {}
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Feed do usuário carregado com sucesso."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Fabrício Silva"
-                        },
-                        "username": {
-                          "type": "string",
-                          "example": "fabricio_silva"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "fabricio@email.com"
-                        },
-                        "profileImage": {
-                          "type": "string",
-                          "example": "https://url-da-imagem.com/foto.jpg"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "tweets": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "example": "550e8400-e29b-41d4-a716-446655440001"
-                              },
-                              "content": {
-                                "type": "string",
-                                "example": "Meu primeiro tweet!"
-                              },
-                              "userId": {
-                                "type": "string",
-                                "example": "550e8400-e29b-41d4-a716-446655440000"
-                              },
-                              "tweetParentId": {},
-                              "createdAt": {
-                                "type": "string",
-                                "example": "2024-01-01T00:00:00.000Z"
-                              },
-                              "replies": {
-                                "type": "array",
-                                "example": [],
-                                "items": {}
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "404": {
-            "description": "Usuário não encontrado"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/user/{id}": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "description": "Retorna o perfil completo do usuário com tweets, seguidores, seguindo e estatísticas",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID do usuário",
-            "example": "550e8400-e29b-41d4-a716-446655440000"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Perfil encontrado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Perfil do usuário encontrado."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Fabrício Silva"
-                        },
-                        "username": {
-                          "type": "string",
-                          "example": "fabricio_silva"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "fabricio@email.com"
-                        },
-                        "profileImage": {
-                          "type": "string",
-                          "example": "https://url-da-imagem.com/foto.jpg"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "tweets": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        },
-                        "followers": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        },
-                        "following": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        },
-                        "stats": {
-                          "type": "object",
-                          "properties": {}
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Perfil do usuário encontrado."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Fabrício Silva"
-                        },
-                        "username": {
-                          "type": "string",
-                          "example": "fabricio_silva"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "fabricio@email.com"
-                        },
-                        "profileImage": {
-                          "type": "string",
-                          "example": "https://url-da-imagem.com/foto.jpg"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "tweets": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        },
-                        "followers": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        },
-                        "following": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        },
-                        "stats": {
-                          "type": "object",
-                          "properties": {}
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "UUID inválido"
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "404": {
-            "description": "Usuário não encontrado"
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -1048,117 +334,11 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Usuário criado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Usuário criado com sucesso!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Fabrício Silva"
-                        },
-                        "username": {
-                          "type": "string",
-                          "example": "fabricio_silva"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "fabricio@email.com"
-                        },
-                        "profileImage": {
-                          "type": "string",
-                          "example": "https://url-da-imagem.com/foto.jpg"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Usuário criado com sucesso!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Fabrício Silva"
-                        },
-                        "username": {
-                          "type": "string",
-                          "example": "fabricio_silva"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "fabricio@email.com"
-                        },
-                        "profileImage": {
-                          "type": "string",
-                          "example": "https://url-da-imagem.com/foto.jpg"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2024-01-01T00:00:00.000Z"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Este nome de usuário já está em uso"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": []
       }
     },
     "/users/{id}/follow": {
@@ -1166,7 +346,7 @@
         "tags": [
           "Users"
         ],
-        "description": "Segue um usuário. O :id é quem vai seguir, userId no body é quem será seguido",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -1174,9 +354,7 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "ID do usuário que vai seguir",
-            "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
           },
           {
             "name": "body",
@@ -1187,138 +365,15 @@
               "properties": {
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440002"
+                  "example": "ID-DO-USUARIO-ALVO"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Usuário seguido com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Agora você está seguindo este usuário."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "followed": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440002"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Outro Usuário"
-                            },
-                            "username": {
-                              "type": "string",
-                              "example": "outro_usuario"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "outro@email.com"
-                            },
-                            "profileImage": {
-                              "type": "string",
-                              "example": "https://url-da-imagem.com/foto.jpg"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Agora você está seguindo este usuário."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "followed": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440002"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Outro Usuário"
-                            },
-                            "username": {
-                              "type": "string",
-                              "example": "outro_usuario"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "outro@email.com"
-                            },
-                            "profileImage": {
-                              "type": "string",
-                              "example": "https://url-da-imagem.com/foto.jpg"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Você já segue este usuário"
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "404": {
-            "description": "Usuário alvo não encontrado"
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -1333,7 +388,7 @@
         "tags": [
           "Users"
         ],
-        "description": "Deixa de seguir um usuário. O :id é quem vai deixar de seguir, userId no body é quem será desseguido",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -1341,9 +396,7 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "ID do usuário que vai deixar de seguir",
-            "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
           },
           {
             "name": "body",
@@ -1354,135 +407,15 @@
               "properties": {
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440002"
+                  "example": "ID-DO-USUARIO-ALVO"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Deixou de seguir com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Você deixou de seguir este usuário."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "followed": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440002"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Outro Usuário"
-                            },
-                            "username": {
-                              "type": "string",
-                              "example": "outro_usuario"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "outro@email.com"
-                            },
-                            "profileImage": {
-                              "type": "string",
-                              "example": "https://url-da-imagem.com/foto.jpg"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Você deixou de seguir este usuário."
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "followed": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440002"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Outro Usuário"
-                            },
-                            "username": {
-                              "type": "string",
-                              "example": "outro_usuario"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "outro@email.com"
-                            },
-                            "profileImage": {
-                              "type": "string",
-                              "example": "https://url-da-imagem.com/foto.jpg"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "example": "2024-01-01T00:00:00.000Z"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "404": {
-            "description": "Você não segue este usuário"
+          "default": {
+            "description": ""
           }
         },
         "security": [

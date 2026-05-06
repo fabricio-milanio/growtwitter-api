@@ -12,8 +12,10 @@ export class AuthRoutes {
       /*
         #swagger.tags = ['Auth']
         #swagger.description = 'Realiza o login do usuário'
+        #swagger.security = []
         #swagger.parameters['body'] = {
           in: 'body',
+          description: 'Credenciais de acesso',
           required: true,
           schema: {
             email: 'fabricio@email.com',
@@ -27,15 +29,7 @@ export class AuthRoutes {
             message: 'Autenticação realizada com sucesso.',
             data: {
               token: 'jwt_token_aqui',
-              user: {
-                id: '550e8400-e29b-41d4-a716-446655440000',
-                name: 'Fabrício Silva',
-                username: 'fabricio_silva',
-                email: 'fabricio@email.com',
-                profileImage: 'https://url-da-imagem.com/foto.jpg',
-                createdAt: '2024-01-01T00:00:00.000Z',
-                updatedAt: '2024-01-01T00:00:00.000Z'
-              }
+              user: { $ref: '#/components/User' }
             }
           }
         }

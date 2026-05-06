@@ -3,7 +3,7 @@
   "info": {
     "title": "Growtwitter API",
     "version": "1.0.0",
-    "description": "API REST desenvolvida para o projeto final da Growdev."
+    "description": "O Growtwitter é uma API REST robusta desenvolvida como projeto final para o curso de Web Full Stack da Growdev. A aplicação simula as funcionalidades principais de uma rede social, permitindo a interação em tempo real entre usuários através de tweets, respostas, curtidas e um sistema dinâmico de seguidores. O objetivo do projeto é consolidar conhecimentos em desenvolvimento backend, focando em escalabilidade, organização de código com Programação Orientada a Objetos (POO) e persistência de dados relacionais."
   },
   "servers": [
     {

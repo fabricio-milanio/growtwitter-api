@@ -17,7 +17,7 @@ export class TweetRoutes {
           in: 'body',
           required: true,
           schema: {
-            content: 'Conteúdo do tweet (máx. 280 caracteres)',
+            content: 'Meu primeiro tweet!',
             userId: '550e8400-e29b-41d4-a716-446655440000'
           }
         }
@@ -27,8 +27,8 @@ export class TweetRoutes {
             success: true,
             message: 'Tweet criado com sucesso.',
             data: {
-              id: '550e8400-e29b-41d4-a716-446655440000',
-              content: 'Conteúdo do tweet',
+              id: '550e8400-e29b-41d4-a716-446655440001',
+              content: 'Meu primeiro tweet!',
               userId: '550e8400-e29b-41d4-a716-446655440000',
               tweetParentId: null,
               createdAt: '2024-01-01T00:00:00.000Z',
@@ -36,6 +36,8 @@ export class TweetRoutes {
             }
           }
         }
+        #swagger.responses[400] = { description: 'Dados inválidos' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       dataValidation([
@@ -56,7 +58,7 @@ export class TweetRoutes {
           in: 'body',
           required: true,
           schema: {
-            content: 'Conteúdo da resposta (máx. 280 caracteres)',
+            content: 'Respondendo ao seu tweet!',
             userId: '550e8400-e29b-41d4-a716-446655440000',
             tweetParentId: '550e8400-e29b-41d4-a716-446655440001'
           }
@@ -68,7 +70,7 @@ export class TweetRoutes {
             message: 'Resposta criada com sucesso.',
             data: {
               id: '550e8400-e29b-41d4-a716-446655440002',
-              content: 'Conteúdo da resposta',
+              content: 'Respondendo ao seu tweet!',
               userId: '550e8400-e29b-41d4-a716-446655440000',
               tweetParentId: '550e8400-e29b-41d4-a716-446655440001',
               createdAt: '2024-01-01T00:00:00.000Z',
@@ -76,9 +78,9 @@ export class TweetRoutes {
             }
           }
         }
-        #swagger.responses[400] = { description: 'O ID do tweet a ser respondido é obrigatório.' }
         #swagger.responses[400] = { description: 'O ID fornecido não é um UUID válido.' }
         #swagger.responses[404] = { description: 'Tweet a ser respondido não foi encontrado' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       dataValidation([
@@ -99,8 +101,8 @@ export class TweetRoutes {
           in: 'body',
           required: true,
           schema: {
-            tweetId: '550e8400-e29b-41d4-a716-446655440000',
-            userId: '550e8400-e29b-41d4-a716-446655440001'
+            tweetId: '550e8400-e29b-41d4-a716-446655440001',
+            userId: '550e8400-e29b-41d4-a716-446655440000'
           }
         }
         #swagger.responses[200] = {
@@ -111,10 +113,10 @@ export class TweetRoutes {
             data: null
           }
         }
-        #swagger.responses[400] = { description: 'O userId e tweetId fornecidos devem ser UUIDs válidos.' }
         #swagger.responses[400] = { description: 'Você já curtiu este tweet.' }
         #swagger.responses[404] = { description: 'Tweet não foi encontrado.' }
         #swagger.responses[404] = { description: 'Usuário não foi encontrado.' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       dataValidation([body('tweetId').isUUID(), body('userId').isUUID()]),
@@ -131,8 +133,8 @@ export class TweetRoutes {
           in: 'body',
           required: true,
           schema: {
-            tweetId: '550e8400-e29b-41d4-a716-446655440000',
-            userId: '550e8400-e29b-41d4-a716-446655440001'
+            tweetId: '550e8400-e29b-41d4-a716-446655440001',
+            userId: '550e8400-e29b-41d4-a716-446655440000'
           }
         }
         #swagger.responses[200] = {
@@ -143,10 +145,10 @@ export class TweetRoutes {
             data: null
           }
         }
-        #swagger.responses[400] = { description: 'O userId e tweetId fornecidos devem ser UUIDs válidos.' }
         #swagger.responses[400] = { description: 'Você não curtiu este tweet.' }
         #swagger.responses[404] = { description: 'Tweet não foi encontrado.' }
         #swagger.responses[404] = { description: 'Usuário não foi encontrado.' }
+        #swagger.responses[401] = { description: 'Não autorizado' }
       */
       authMiddleware,
       dataValidation([body('tweetId').isUUID(), body('userId').isUUID()]),

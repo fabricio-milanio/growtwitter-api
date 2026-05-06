@@ -27,11 +27,11 @@
               "properties": {
                 "email": {
                   "type": "string",
-                  "example": "usuario@email.com"
+                  "example": "fabricio@email.com"
                 },
                 "password": {
                   "type": "string",
-                  "example": "123456"
+                  "example": "senha123"
                 }
               }
             }
@@ -45,9 +45,55 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "token": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
                       "type": "string",
-                      "example": "jwt_token_aqui"
+                      "example": "Autenticação realizada com sucesso."
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "jwt_token_aqui"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "550e8400-e29b-41d4-a716-446655440000"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Fabrício Silva"
+                            },
+                            "username": {
+                              "type": "string",
+                              "example": "fabricio_silva"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "fabricio@email.com"
+                            },
+                            "profileImage": {
+                              "type": "string",
+                              "example": "https://url-da-imagem.com/foto.jpg"
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-01-01T00:00:00.000Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-01-01T00:00:00.000Z"
+                            }
+                          }
+                        }
+                      }
                     }
                   },
                   "xml": {
@@ -59,9 +105,55 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "token": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
                       "type": "string",
-                      "example": "jwt_token_aqui"
+                      "example": "Autenticação realizada com sucesso."
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "jwt_token_aqui"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "550e8400-e29b-41d4-a716-446655440000"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Fabrício Silva"
+                            },
+                            "username": {
+                              "type": "string",
+                              "example": "fabricio_silva"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "fabricio@email.com"
+                            },
+                            "profileImage": {
+                              "type": "string",
+                              "example": "https://url-da-imagem.com/foto.jpg"
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-01-01T00:00:00.000Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-01-01T00:00:00.000Z"
+                            }
+                          }
+                        }
+                      }
                     }
                   },
                   "xml": {
@@ -93,7 +185,7 @@
               "properties": {
                 "content": {
                   "type": "string",
-                  "example": "Conteúdo do tweet (máx. 280 caracteres)"
+                  "example": "Meu primeiro tweet!"
                 },
                 "userId": {
                   "type": "string",
@@ -124,11 +216,11 @@
                       "properties": {
                         "id": {
                           "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
+                          "example": "550e8400-e29b-41d4-a716-446655440001"
                         },
                         "content": {
                           "type": "string",
-                          "example": "Conteúdo do tweet"
+                          "example": "Meu primeiro tweet!"
                         },
                         "userId": {
                           "type": "string",
@@ -169,11 +261,11 @@
                       "properties": {
                         "id": {
                           "type": "string",
-                          "example": "550e8400-e29b-41d4-a716-446655440000"
+                          "example": "550e8400-e29b-41d4-a716-446655440001"
                         },
                         "content": {
                           "type": "string",
-                          "example": "Conteúdo do tweet"
+                          "example": "Meu primeiro tweet!"
                         },
                         "userId": {
                           "type": "string",
@@ -198,6 +290,12 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Não autorizado"
           }
         },
         "security": [
@@ -223,7 +321,7 @@
               "properties": {
                 "content": {
                   "type": "string",
-                  "example": "Conteúdo da resposta (máx. 280 caracteres)"
+                  "example": "Respondendo ao seu tweet!"
                 },
                 "userId": {
                   "type": "string",
@@ -262,7 +360,7 @@
                         },
                         "content": {
                           "type": "string",
-                          "example": "Conteúdo da resposta"
+                          "example": "Respondendo ao seu tweet!"
                         },
                         "userId": {
                           "type": "string",
@@ -310,7 +408,7 @@
                         },
                         "content": {
                           "type": "string",
-                          "example": "Conteúdo da resposta"
+                          "example": "Respondendo ao seu tweet!"
                         },
                         "userId": {
                           "type": "string",
@@ -342,6 +440,9 @@
           "400": {
             "description": "O ID fornecido não é um UUID válido."
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Tweet a ser respondido não foi encontrado"
           }
@@ -369,11 +470,11 @@
               "properties": {
                 "tweetId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440000"
+                  "example": "550e8400-e29b-41d4-a716-446655440001"
                 },
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440001"
+                  "example": "550e8400-e29b-41d4-a716-446655440000"
                 }
               }
             }
@@ -426,6 +527,9 @@
           "400": {
             "description": "Você já curtiu este tweet."
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Usuário não foi encontrado."
           }
@@ -453,11 +557,11 @@
               "properties": {
                 "tweetId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440000"
+                  "example": "550e8400-e29b-41d4-a716-446655440001"
                 },
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440001"
+                  "example": "550e8400-e29b-41d4-a716-446655440000"
                 }
               }
             }
@@ -509,6 +613,9 @@
           },
           "400": {
             "description": "Você não curtiu este tweet."
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Usuário não foi encontrado."
@@ -564,15 +671,15 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Nome do usuário"
+                          "example": "Fabrício Silva"
                         },
                         "username": {
                           "type": "string",
-                          "example": "username"
+                          "example": "fabricio_silva"
                         },
                         "email": {
                           "type": "string",
-                          "example": "usuario@email.com"
+                          "example": "fabricio@email.com"
                         },
                         "profileImage": {
                           "type": "string",
@@ -597,7 +704,7 @@
                               },
                               "content": {
                                 "type": "string",
-                                "example": "Conteúdo do tweet"
+                                "example": "Meu primeiro tweet!"
                               },
                               "userId": {
                                 "type": "string",
@@ -645,15 +752,15 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Nome do usuário"
+                          "example": "Fabrício Silva"
                         },
                         "username": {
                           "type": "string",
-                          "example": "username"
+                          "example": "fabricio_silva"
                         },
                         "email": {
                           "type": "string",
-                          "example": "usuario@email.com"
+                          "example": "fabricio@email.com"
                         },
                         "profileImage": {
                           "type": "string",
@@ -678,7 +785,7 @@
                               },
                               "content": {
                                 "type": "string",
-                                "example": "Conteúdo do tweet"
+                                "example": "Meu primeiro tweet!"
                               },
                               "userId": {
                                 "type": "string",
@@ -706,6 +813,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Usuário não encontrado"
@@ -761,15 +871,15 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Nome do usuário"
+                          "example": "Fabrício Silva"
                         },
                         "username": {
                           "type": "string",
-                          "example": "username"
+                          "example": "fabricio_silva"
                         },
                         "email": {
                           "type": "string",
-                          "example": "usuario@email.com"
+                          "example": "fabricio@email.com"
                         },
                         "profileImage": {
                           "type": "string",
@@ -831,15 +941,15 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Nome do usuário"
+                          "example": "Fabrício Silva"
                         },
                         "username": {
                           "type": "string",
-                          "example": "username"
+                          "example": "fabricio_silva"
                         },
                         "email": {
                           "type": "string",
-                          "example": "usuario@email.com"
+                          "example": "fabricio@email.com"
                         },
                         "profileImage": {
                           "type": "string",
@@ -885,6 +995,9 @@
           "400": {
             "description": "UUID inválido"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Usuário não encontrado"
           }
@@ -912,15 +1025,15 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "Nome Completo"
+                  "example": "Fabrício Silva"
                 },
                 "username": {
                   "type": "string",
-                  "example": "nome_usuario"
+                  "example": "fabricio_silva"
                 },
                 "email": {
                   "type": "string",
-                  "example": "usuario@email.com"
+                  "example": "fabricio@email.com"
                 },
                 "password": {
                   "type": "string",
@@ -959,15 +1072,15 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Nome Completo"
+                          "example": "Fabrício Silva"
                         },
                         "username": {
                           "type": "string",
-                          "example": "nome_usuario"
+                          "example": "fabricio_silva"
                         },
                         "email": {
                           "type": "string",
-                          "example": "usuario@email.com"
+                          "example": "fabricio@email.com"
                         },
                         "profileImage": {
                           "type": "string",
@@ -1010,15 +1123,15 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Nome Completo"
+                          "example": "Fabrício Silva"
                         },
                         "username": {
                           "type": "string",
-                          "example": "nome_usuario"
+                          "example": "fabricio_silva"
                         },
                         "email": {
                           "type": "string",
-                          "example": "usuario@email.com"
+                          "example": "fabricio@email.com"
                         },
                         "profileImage": {
                           "type": "string",
@@ -1074,7 +1187,7 @@
               "properties": {
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440001"
+                  "example": "550e8400-e29b-41d4-a716-446655440002"
                 }
               }
             }
@@ -1104,19 +1217,19 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440001"
+                              "example": "550e8400-e29b-41d4-a716-446655440002"
                             },
                             "name": {
                               "type": "string",
-                              "example": "Nome do usuário seguido"
+                              "example": "Outro Usuário"
                             },
                             "username": {
                               "type": "string",
-                              "example": "username_seguido"
+                              "example": "outro_usuario"
                             },
                             "email": {
                               "type": "string",
-                              "example": "seguido@email.com"
+                              "example": "outro@email.com"
                             },
                             "profileImage": {
                               "type": "string",
@@ -1160,19 +1273,19 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440001"
+                              "example": "550e8400-e29b-41d4-a716-446655440002"
                             },
                             "name": {
                               "type": "string",
-                              "example": "Nome do usuário seguido"
+                              "example": "Outro Usuário"
                             },
                             "username": {
                               "type": "string",
-                              "example": "username_seguido"
+                              "example": "outro_usuario"
                             },
                             "email": {
                               "type": "string",
-                              "example": "seguido@email.com"
+                              "example": "outro@email.com"
                             },
                             "profileImage": {
                               "type": "string",
@@ -1200,6 +1313,9 @@
           },
           "400": {
             "description": "Você já segue este usuário"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Usuário alvo não encontrado"
@@ -1238,7 +1354,7 @@
               "properties": {
                 "userId": {
                   "type": "string",
-                  "example": "550e8400-e29b-41d4-a716-446655440001"
+                  "example": "550e8400-e29b-41d4-a716-446655440002"
                 }
               }
             }
@@ -1268,19 +1384,19 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440001"
+                              "example": "550e8400-e29b-41d4-a716-446655440002"
                             },
                             "name": {
                               "type": "string",
-                              "example": "Nome do usuário desseguido"
+                              "example": "Outro Usuário"
                             },
                             "username": {
                               "type": "string",
-                              "example": "username_desseguido"
+                              "example": "outro_usuario"
                             },
                             "email": {
                               "type": "string",
-                              "example": "desseguido@email.com"
+                              "example": "outro@email.com"
                             },
                             "profileImage": {
                               "type": "string",
@@ -1324,19 +1440,19 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "example": "550e8400-e29b-41d4-a716-446655440001"
+                              "example": "550e8400-e29b-41d4-a716-446655440002"
                             },
                             "name": {
                               "type": "string",
-                              "example": "Nome do usuário desseguido"
+                              "example": "Outro Usuário"
                             },
                             "username": {
                               "type": "string",
-                              "example": "username_desseguido"
+                              "example": "outro_usuario"
                             },
                             "email": {
                               "type": "string",
-                              "example": "desseguido@email.com"
+                              "example": "outro@email.com"
                             },
                             "profileImage": {
                               "type": "string",
@@ -1361,6 +1477,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Você não segue este usuário"

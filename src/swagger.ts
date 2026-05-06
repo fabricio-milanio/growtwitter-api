@@ -19,9 +19,9 @@ const doc = {
   schemes,
   securityDefinitions: {
     bearerAuth: {
-      type: 'apiKey',
-      in: 'header',
-      name: 'Authorization',
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
     },
   },
 };
